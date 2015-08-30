@@ -19,11 +19,11 @@ import java.util.logging.Logger;
  */
 public class LecturaBinaria {
     
-    private final String nombreArchivo = "entrada.data";
+    private final String archivoEntrada = "entrada.data";
     
     public void lecturaSecuencial(){
         try {
-            File archivo = new File(nombreArchivo);
+            File archivo = new File(archivoEntrada);
             FileInputStream lectorArchivo = new FileInputStream(archivo);
             DataInputStream datos;
             datos = new DataInputStream(lectorArchivo);
