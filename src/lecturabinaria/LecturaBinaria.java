@@ -12,6 +12,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.RandomAccessFile;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -157,7 +158,82 @@ public final class LecturaBinaria {
             Logger.getLogger(LecturaBinaria.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    public void leerAleatoriamente(int numDato) {
+        try {
+            
+            RandomAccessFile archivo = new RandomAccessFile(archivoSalida, "r");
+            
+            int bytesNoLeidos=0;
+            
+            if (numDato>0) {
+                for (int i = 0; i < numDato; i++) {
+                    bytesNoLeidos+=archivo.readByte() + 1 + 4;
+                    if (bytesNoLeidos >= archivo.length())
+                        return;
+                    archivo.seek(bytesNoLeidos);
+                }
+                
+            }
+            
+            String producto;
+            Float precio;
+            
+            int longitudCadena;
+            longitudCadena = archivo.readByte();
+            
+            byte[] caracteres;
+            caracteres = new byte[longitudCadena];
+            archivo.read(caracteres);
+            producto = new String(caracteres);
+            
+            precio = archivo.readFloat();
+            
+            archivo.close();
+            
+            System.out.println("Producto: "+producto+" Precio: "+precio);
+           
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(LecturaBinaria.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(LecturaBinaria.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
 
+    public void cambiarPrecio(int numDato, float nuevoPrecio) {
+        try {
+            
+            RandomAccessFile archivo = new RandomAccessFile(archivoSalida, "rw");
+            
+            int bytesNoLeidos=0;
+            
+            if (numDato>0) {
+                for (int i = 0; i < numDato; i++) {
+                    bytesNoLeidos+=archivo.readByte() + 1 + 4;
+                    if (bytesNoLeidos >= archivo.length())
+                        return;
+                    archivo.seek(bytesNoLeidos);
+                }
+                
+            }
+            
+            int longitudCadena;
+            longitudCadena = archivo.readByte();
+            
+            archivo.seek(archivo.getFilePointer()+longitudCadena);
+            
+            archivo.writeFloat(nuevoPrecio);
+            
+            archivo.close();
+           
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(LecturaBinaria.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(LecturaBinaria.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
     public LecturaBinaria() {
         productos = new ArrayList();
         insertarProductos();
@@ -169,7 +245,7 @@ public final class LecturaBinaria {
     public static void main(String[] args) {
         // TODO code application logic here
         LecturaBinaria l = new LecturaBinaria();
-        l.guardarEstructura();
+        l.cambiarPrecio(2, 100.0f);
         l.leerProductos();
     }
     
