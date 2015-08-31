@@ -18,6 +18,11 @@ public class Producto {
         precio = 0.0f;
     }
     
+    /**
+     * Constructor para precio
+     * @param n Nombre
+     * @param p Precio
+     */
     public Producto(String n, Float p) {
         nombre = n;
         precio = p;

@@ -28,6 +28,10 @@ public final class LecturaBinaria {
     
     private final ArrayList<Producto> productos;
     
+    /**
+     * Lectura secuencial de archivos binarios
+     * preparación
+     */
     public void lecturaSecuencial(){
         try {
             File archivo = new File(archivoEntrada);
@@ -58,6 +62,9 @@ public final class LecturaBinaria {
         } 
     }
 
+    /**
+     * Escritura secuencial de archivos binarios
+     */
     public void escrituraSecuencial(){
         try {
             File archivo = new File(archivoSalida);
@@ -86,6 +93,9 @@ public final class LecturaBinaria {
         
     }
     
+    /**
+     * Método usado para insertar datos a la lista de Productos
+     */
     public void insertarProductos() {
         productos.add(new Producto("Cereal", 35.0f));
         productos.add(new Producto("Leche", 10.0f));
@@ -93,6 +103,10 @@ public final class LecturaBinaria {
         productos.add(new Producto("Peras", 20.0f));
     }
     
+    /**
+     * Método que ingresa la información de la estructura de datos
+     * a un archivo
+     */
     public void guardarEstructura(){
         try {
             File archivo = new File(archivoSalida);
@@ -126,6 +140,10 @@ public final class LecturaBinaria {
         }
     }
     
+    /**
+     * Método que obtiene la lista de productos de un archivo, siguiendo
+     * la estructura de productos
+     */
     public void leerProductos(){
         try {
             File archivo = new File(archivoSalida);
@@ -159,6 +177,12 @@ public final class LecturaBinaria {
         }
     }
     
+    /**
+     * Método que lee un archivo mediante acceso aleatorio, se le debe de 
+     * pasar un parámetro indicando el número de registro a obtener; los 
+     * registros siempre empiezan de 0.
+     * @param numDato número de dato
+     */
     public void leerAleatoriamente(int numDato) {
         try {
             
@@ -201,6 +225,14 @@ public final class LecturaBinaria {
         
     }
 
+    /**
+     * Modifica el precio de un producto en la estructura.
+     * 
+     * Para poder modificarlo necesita el número de registro a editar y el
+     * precio nuevo.
+     * @param numDato número de registro
+     * @param nuevoPrecio nuevo precio
+     */
     public void cambiarPrecio(int numDato, float nuevoPrecio) {
         try {
             
@@ -234,6 +266,9 @@ public final class LecturaBinaria {
         }
     }
     
+    /**
+     * Constructor que inicializa la lista de productos
+     */
     public LecturaBinaria() {
         productos = new ArrayList();
         insertarProductos();
@@ -245,8 +280,7 @@ public final class LecturaBinaria {
     public static void main(String[] args) {
         // TODO code application logic here
         LecturaBinaria l = new LecturaBinaria();
-        l.cambiarPrecio(2, 100.0f);
-        l.leerProductos();
+
     }
     
 }
